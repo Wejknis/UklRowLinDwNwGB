@@ -37,13 +37,9 @@ int main() {
 }
 
 void oblicz_rozwiazanie(double W, double Wx, double Wy) {
-    if(W != 0) {
-        double x, y;
-
-        x = Wx / W;
-        y = Wy / W;
+    if(W != 0.0) {
         printf("Rozwiązanie:\n");
-        printf("x = %5.2lf, y = %5.2lf", x, y);
+        printf("x = %5.2lf, y = %5.2lf", Wx / W, Wy / W);
         printf("\n");
         } else{
         if(Wx != 0.0 || Wy != 0.0){
