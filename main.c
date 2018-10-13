@@ -1,5 +1,18 @@
 #include <stdio.h>
 
+void wyswietl_info();
+
+void wczytaj_wspolczynniki(double *a1, double *b1, double *c1, double *a2, double *b2, double *c2);
+
+void wyswietl_ukl_rownan(double a1, double b1, double c1, double a2, double b2, double c2);
+
+void
+oblicz_wyznaczniki(double a1, double b1, double c1, double a2, double b2, double c2, double *W, double *Wx, double *Wy);
+
+void wyswietl_wyznaczniki(double W, double Wx, double Wy);
+
+void oblicz_rozwiazanie(double W, double Wx, double Wy, double x, double y);
+
 double wyznacznik(double k, double l, double m, double n) {
     return k * n - l * m;
 }
@@ -9,34 +22,22 @@ int main() {
     double W, Wx, Wy;
     double x, y;
 
-    printf("Program rozwiązuje układ dwóch równań linowych:\n");
-    printf("a1*x + b1*y = c1\n");
-    printf("a2*x + b2*y = c2\n");
-    printf("\n");
-    printf("podaj wspołczynnik.\n");
+    wyswietl_info();
 
-    printf("podaj a1: "); scanf("%lf", &a1);
-    printf("podaj b1: "); scanf("%lf", &b1);
-    printf("podaj c1: "); scanf("%lf", &c1);
-    printf("podaj a2: "); scanf("%lf", &a2);
-    printf("podaj b2: "); scanf("%lf", &b2);
-    printf("podaj c2: "); scanf("%lf", &c2);
-    printf("\n");
+    wczytaj_wspolczynniki(&a1, &b1, &c1, &a2, &b2, &c2);
 
-    printf("Twój układ równań: \n");
-    printf("%5.2lf*x + %5.2lf*y = %5.2lf\n", a1, b1, c1);
-    printf("%5.2lf*x + %5.2lf*y = %5.2lf\n", a2, b2, c2);
-    printf("\n");
+    wyswietl_ukl_rownan(a1, b1, c1, a2, b2, c2);
 
-    W = wyznacznik(a1, a2, b1, b2);
-    Wx = wyznacznik(c1, c2, b1, b2);
-    Wy = wyznacznik(a1, a2, c1, c2);
+    oblicz_wyznaczniki(a1, b1, c1, a2, b2, c2, &W, &Wx, &Wy);
 
-    printf("Wyznacznik W = %lf\n", W);
-    printf("Wyznacznik Wx = %lf\n", Wx);
-    printf("Wyznacznik Wy = %lf\n", Wy);
-    printf("\n");
+    wyswietl_wyznaczniki(W, Wx, Wy);
 
+    oblicz_rozwiazanie(W, Wx, Wy, x, y);
+
+    return 0;
+}
+
+void oblicz_rozwiazanie(double W, double Wx, double Wy, double x, double y) {
     if(W != 0){
         x = Wx / W;
         y = Wy / W;
@@ -50,6 +51,49 @@ int main() {
             printf("Układ równań nieoznaczony - nieskończenie wiele rozwiązań.");
         }
     }
+}
 
-    return 0;
+void wyswietl_wyznaczniki(double W, double Wx, double Wy) {
+    printf("Wyznacznik W = %lf\n", W);
+    printf("Wyznacznik Wx = %lf\n", Wx);
+    printf("Wyznacznik Wy = %lf\n", Wy);
+    printf("\n");
+}
+
+void
+oblicz_wyznaczniki(double a1, double b1, double c1, double a2, double b2, double c2, double *W, double *Wx, double *Wy) {
+    (*W) = wyznacznik(a1, a2, b1, b2);
+    (*Wx) = wyznacznik(c1, c2, b1, b2);
+    (*Wy) = wyznacznik(a1, a2, c1, c2);
+}
+
+void wyswietl_ukl_rownan(double a1, double b1, double c1, double a2, double b2, double c2) {
+    printf("Twój układ równań: \n");
+    printf("%5.2lf*x + %5.2lf*y = %5.2lf\n", a1, b1, c1);
+    printf("%5.2lf*x + %5.2lf*y = %5.2lf\n", a2, b2, c2);
+    printf("\n");
+}
+
+void wczytaj_wspolczynniki(double *a1, double *b1, double *c1, double *a2, double *b2, double *c2) {
+    printf("podaj a1: ");
+    scanf("%lf", a1);
+    printf("podaj b1: ");
+    scanf("%lf", b1);
+    printf("podaj c1: ");
+    scanf("%lf", c1);
+    printf("podaj a2: ");
+    scanf("%lf", a2);
+    printf("podaj b2: ");
+    scanf("%lf", b2);
+    printf("podaj c2: ");
+    scanf("%lf", c2);
+    printf("\n");
+}
+
+void wyswietl_info() {
+    printf("Program rozwiązuje układ dwóch równań linowych:\n");
+    printf("a1*x + b1*y = c1\n");
+    printf("a2*x + b2*y = c2\n");
+    printf("\n");
+    printf("podaj wspołczynnik.\n");
 }
