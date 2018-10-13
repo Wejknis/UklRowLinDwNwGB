@@ -11,7 +11,7 @@ oblicz_wyznaczniki(double a1, double b1, double c1, double a2, double b2, double
 
 void wyswietl_wyznaczniki(double W, double Wx, double Wy);
 
-void oblicz_rozwiazanie(double W, double Wx, double Wy, double x, double y);
+void oblicz_rozwiazanie(double W, double Wx, double Wy);
 
 double wyznacznik(double k, double l, double m, double n) {
     return k * n - l * m;
@@ -20,7 +20,6 @@ double wyznacznik(double k, double l, double m, double n) {
 int main() {
     double a1, b1, c1, a2, b2, c2;
     double W, Wx, Wy;
-    double x, y;
 
     wyswietl_info();
 
@@ -32,13 +31,15 @@ int main() {
 
     wyswietl_wyznaczniki(W, Wx, Wy);
 
-    oblicz_rozwiazanie(W, Wx, Wy, x, y);
+    oblicz_rozwiazanie(W, Wx, Wy);
 
     return 0;
 }
 
-void oblicz_rozwiazanie(double W, double Wx, double Wy, double x, double y) {
-    if(W != 0){
+void oblicz_rozwiazanie(double W, double Wx, double Wy) {
+    if(W != 0) {
+        double x, y;
+
         x = Wx / W;
         y = Wy / W;
         printf("Rozwiązanie:\n");
